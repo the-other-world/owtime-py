@@ -19,7 +19,7 @@ A = 版本修改次数（例如 fix、feat 等）
 
 # 安装
 
-```bash
+```shell
 pip install git+https://github.com/the-other-world/owtime-py.git
 ```
 
