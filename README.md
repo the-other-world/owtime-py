@@ -30,8 +30,72 @@ pip install git+https://github.com/the-other-world/owtime-py.git@4.2.2.1
 ```
 
 # 使用
+## OWTime
+```python
+import owtime
+import datetime
 
-暂未编写
+"""
+这些对象均可以被 str() 转换为人类可读的格式
+
+这些对象均拥有 weekday 属性，取值范围是 1 ~ 8，对应星期一到星期八
+"""
+
+print(owtime.owtimes.OWTime(3047, 1, 1, 1, 1, 1, 1))  # 创建一个异世界时间对象
+print(owtime.owtimes.OWTime.now())  # 获取当前异世界时间对象
+print(owtime.owtimes.OWTime.from_datetime(datetime.datetime.now()))  # 从已知的现实时间（任意时区）反推异世界时间
+```
+## OWTS
+```python
+import owtime
+import datetime
+
+"""
+这些对象均可以被 str() 或 int() 转换为 int 类型的时间戳
+
+这些对象均拥有 to_int() 方法，等效于 int()
+"""
+
+# 秒级时间戳版本，格式为 3118087
+print(owtime.owts.OWTS(owtime.owtimes.OWTime.now()))  # 从一个已知的异世界时间反推出异世界时间戳
+print(owtime.owts.OWTS.now())  # 获取当前异世界时间戳
+print(owtime.owts.OWTS.from_datetime(datetime.datetime.now()))  # 从已知的现实时间（任意时区）反推异世界时间戳
+
+# 毫秒时间戳版本，格式为 3118087508
+print(owtime.owts.OWMTS(owtime.owtimes.OWTime.now()))
+print(owtime.owts.OWMTS.now())
+print(owtime.owts.OWMTS.from_datetime(datetime.datetime.now()))
+```
+
+## OWTS
+```python
+import owtime
+import datetime
+
+"""
+这些对象均可以被 str() 转换为人类可读的格式
+"""
+
+print(owtime.owct.OWCT(1, 1, 1, 1))  # 创建一个异世界协调时间对象，参数从小时到毫秒，毫秒选填，不填为 0
+print(owtime.owct.OWCT.now())  # 获取当前异世界协调时间对象
+print(owtime.owct.OWCT.from_datetime(datetime.datetime.now()))  # # 从已知的现实时间（任意时区）反推异世界协调时间
+```
+
+## OWCL
+```python
+import owtime
+import datetime
+
+"""
+这些对象均可以被 str() 或 int() 转换为 int 类型的时间戳
+
+这些对象均拥有 to_int() 方法，等效于 int()
+"""
+
+print(owtime.owcl.OWCL(3047, 1, 1))  # 创建一个异世界日期对象
+print(owtime.owcl.OWCL.now())  # 获取当前异世界日期对象
+print(owtime.owcl.OWCL.from_datetime(datetime.datetime.now()))  # # 从已知的现实时间（任意时区）反推异世界日期
+```
 
 ---
 
@@ -44,6 +108,8 @@ OWCTv4的起草，意味着OWST的弃用，该标准同时定义了异世界时�
 一天为32小时，一小时为128分钟，一分钟为128秒。
 
 以异世界历3047年1月1日0时0分0秒为OWTS(v1)的开始（即0秒处）。
+
+OWTSv2 规定时间戳必须精确到毫秒
 
 # 异世界历法（OWCL）
 
