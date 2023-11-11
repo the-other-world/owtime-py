@@ -51,7 +51,7 @@ import owtime
 import datetime
 
 """
-这些对象均可以被 str() 或 int() 转换为 int 类型的时间戳
+这些对象均可以被 str() 或 int() 转换为数字格式的时间戳
 
 这些对象均拥有 to_int() 方法，等效于 int()
 """
