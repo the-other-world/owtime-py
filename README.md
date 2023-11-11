@@ -11,9 +11,9 @@ X.Y.Z.A
 
 X = 基于的 OWCT 版本
 
-Y = 基于的 OWTS 版本
+Y = 基于的 OWCL 版本
 
-Z = 基于的 OWCL 版本
+Z = 基于的 OWTS 版本
 
 A = 版本修改次数（例如 fix、feat 等）
 
