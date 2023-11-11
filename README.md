@@ -67,7 +67,7 @@ print(owtime.owts.OWMTS.now())
 print(owtime.owts.OWMTS.from_datetime(datetime.datetime.now()))
 ```
 
-## OWTS
+## OWCT
 ```python
 import owtime
 import datetime
@@ -87,9 +87,7 @@ import owtime
 import datetime
 
 """
-这些对象均可以被 str() 或 int() 转换为 int 类型的时间戳
-
-这些对象均拥有 to_int() 方法，等效于 int()
+这些对象均可以被 str() 转换为人类可读的格式
 """
 
 print(owtime.owcl.OWCL(3047, 1, 1))  # 创建一个异世界日期对象
