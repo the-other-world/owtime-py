@@ -10,6 +10,6 @@ setup(
     requires=["datetime", "pytz"],
     packages=find_packages(),
     license="MIT License",
-    long_description=open("README.md").read(),
+    long_description=open("README.md", "r", encoding="UTF-8").read(),
     python_requires=">=3.6"
 )
