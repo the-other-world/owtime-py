@@ -35,8 +35,8 @@ class OWCL:
         day_elapsed = owt / 1000 / 524288
         return OWCL(
             int(day_elapsed // 256 + 3047),
-            int(day_elapsed // 32),
-            int(day_elapsed - day_elapsed // 256 * 256 - day_elapsed // 32 * 32)
+            int(day_elapsed // 32) + 1,
+            int(day_elapsed - day_elapsed // 256 * 256 - day_elapsed // 32 * 32) + 1
         )
 
     @classmethod
@@ -49,6 +49,6 @@ class OWCL:
         day_elapsed = owt / 1000 / 524288
         return OWCL(
             int(day_elapsed // 256 + 3047),
-            int(day_elapsed // 32),
-            int(day_elapsed - day_elapsed // 256 * 256 - day_elapsed // 32 * 32)
+            int(day_elapsed // 32) + 1,
+            int(day_elapsed - day_elapsed // 256 * 256 - day_elapsed // 32 * 32) + 1
         )
