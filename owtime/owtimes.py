@@ -101,4 +101,4 @@ class OWTime:
 
     @classmethod
     def now(cls):
-        return OWTime.from_datetime(datetime.datetime.utcnow())
+        return OWTime.from_datetime(datetime.datetime.now())

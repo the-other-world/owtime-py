@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name="owtime",
-    version="5.2.2.2",
+    version="5.2.2.3",
     author="KuoHu",
     author_email="y066ydg5@duck.com",
     description="Python 库 - OWTime 的时间处理工具",

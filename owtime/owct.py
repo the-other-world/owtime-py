@@ -49,4 +49,4 @@ class OWCT:
 
     @classmethod
     def now(cls):
-        return OWCT.from_datetime(datetime.datetime.utcnow())
+        return OWCT.from_datetime(datetime.datetime.now())

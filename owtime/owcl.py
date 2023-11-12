@@ -59,4 +59,4 @@ class OWCL:
 
     @classmethod
     def now(cls):
-        return OWCL.from_datetime(datetime.datetime.utcnow())
+        return OWCL.from_datetime(datetime.datetime.now())
