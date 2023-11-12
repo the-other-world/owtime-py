@@ -49,19 +49,4 @@ class OWCT:
 
     @classmethod
     def now(cls):
-        utc = int(datetime.datetime.utcnow().timestamp() * 1000)
-        owt = utc - int(datetime.datetime(
-            2023, 3, 20, 0, 0, 0, 0,
-            tzinfo=pytz.UTC
-        ).timestamp() * 1000)
-        remaining_milliseconds = owt % 524288000
-        hour = int(remaining_milliseconds / 1000 / 16384)
-        minute = int((remaining_milliseconds / 1000 - hour * 16384) / 128)
-        second = int(remaining_milliseconds / 1000 - hour * 16384 - minute * 128)
-        millisecond = int(remaining_milliseconds - hour * 16384000 - minute * 128000 - second * 1000)
-        return OWCT(
-            hour,
-            minute,
-            second,
-            millisecond
-        )
+        return OWCT.from_datetime(datetime.datetime.utcnow())
