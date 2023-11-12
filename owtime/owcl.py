@@ -41,14 +41,4 @@ class OWCL:
 
     @classmethod
     def now(cls):
-        utc = int(datetime.datetime.utcnow().timestamp() * 1000)
-        owt = utc - int(datetime.datetime(
-            2023, 3, 20, 0, 0, 0, 0,
-            tzinfo=pytz.UTC
-        ).timestamp() * 1000)
-        day_elapsed = owt / 1000 / 524288
-        return OWCL(
-            int(day_elapsed // 256 + 3047),
-            int(day_elapsed // 32) + 1,
-            int(day_elapsed - day_elapsed // 256 * 256 - day_elapsed // 32 * 32) + 1
-        )
+        return OWCL.from_datetime(datetime.datetime.utcnow())
