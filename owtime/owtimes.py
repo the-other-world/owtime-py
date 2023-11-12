@@ -56,8 +56,8 @@ class OWTime:
         millisecond = int(remaining_milliseconds - hour * 16384000 - minute * 128000 - second * 1000)
         return OWTime(
             year + 3047,
-            month,
-            day,
+            month + 1,
+            day + 1,
             hour,
             minute,
             second,
