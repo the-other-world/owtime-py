@@ -1,6 +1,8 @@
 """
 异世界时间戳
 """
+import datetime
+
 import owtime.owtimes
 
 
@@ -31,7 +33,7 @@ class OWMTS:
         return OWTS.from_owmts_obj(self)
 
     @classmethod
-    def from_owts_obj(cls, owmts: owtime.owts.OWTS):
+    def from_owts_obj(cls, owmts):
         return OWMTS(owmts.owtime)
 
     @classmethod
@@ -70,11 +72,11 @@ class OWTS:
         return OWMTS.from_owts_obj(self)
 
     @classmethod
-    def from_owmts_obj(cls, owmts: owtime.owts.OWMTS):
+    def from_owmts_obj(cls, owmts):
         return OWTS(owmts.owtime)
 
     @classmethod
-    def from_datetime(cls, now):
+    def from_datetime(cls, now: datetime.datetime):
         return OWTS(owtime.owtimes.OWTime.from_datetime(now))
 
     @classmethod

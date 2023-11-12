@@ -21,16 +21,16 @@ class OWCT:
             raise ValueError(f"OWCT 规定一小时有 128 分钟，你却传入了 {minute} 分钟")
         if second < 0 or minute > 128:  # OWCT 规定一分钟有 128 秒
             raise ValueError(f"OWCT 规定一分钟有 128 秒，你却传入了 {second} 秒")
-        if second < 0 or millisecond > 1000:  # OWCT 规定一分钟有 128 秒
+        if millisecond < 0 or millisecond > 999:  # 1s == 1000ms
             raise ValueError(f"一分钟有 1000 毫秒，你却传入了 {millisecond} 秒")
 
     def __str__(self):
-        return f"{self.hour:0>2d}:{self.minute:0>2d}:{self.second:0>2d}.{self.millisecond:0<4d}"
+        return f"{self.hour:0>2d}:{self.minute:0>2d}:{self.second:0>2d}.{self.millisecond:0<3d}"
 
     @classmethod
     def from_datetime(cls, now: datetime.datetime):
-        now = datetime.datetime.utcfromtimestamp(now.timestamp())
-        utc = int(now.utcnow().timestamp() * 1000)
+        now = now.astimezone(pytz.UTC)
+        utc = int(now.timestamp() * 1000)
         owt = utc - int(datetime.datetime(
             2023, 3, 20, 0, 0, 0, 0,
             tzinfo=pytz.UTC

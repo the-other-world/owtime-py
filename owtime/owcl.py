@@ -26,7 +26,7 @@ class OWCL:
 
     @classmethod
     def from_datetime(cls, now: datetime.datetime):
-        now = datetime.datetime.utcfromtimestamp(now.timestamp())
+        now = now.astimezone(pytz.UTC)
         utc = int(now.timestamp() * 1000)
         owt = utc - int(datetime.datetime(
             2023, 3, 20, 0, 0, 0, 0,

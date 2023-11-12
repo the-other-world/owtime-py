@@ -25,44 +25,71 @@ class OWTime:
             raise ValueError(f"OWCL 规定一年有 8 个月，你却传入了 {month} 月")
         if day < 1 or day > 32:  # OWCL 规定一月有 32 天
             raise ValueError(f"OWCL 规定一月有 32 天，你却传入了 {day} 日")
-        if hour < 0 or hour > 32:  # OWCT 规定一天有 32 小时
+        if hour < 0 or hour > 31:  # OWCT 规定一天有 32 小时
             raise ValueError(f"OWCT 规定一天有 32 小时，你却传入了 {hour} 小时")
-        if minute < 0 or minute > 128:  # OWCT 规定一小时有 128 分钟
+        if minute < 0 or minute > 127:  # OWCT 规定一小时有 128 分钟
             raise ValueError(f"OWCT 规定一小时有 128 分钟，你却传入了 {minute} 分钟")
-        if second < 0 or minute > 128:  # OWCT 规定一分钟有 128 秒
+        if second < 0 or minute > 127:  # OWCT 规定一分钟有 128 秒
             raise ValueError(f"OWCT 规定一分钟有 128 秒，你却传入了 {second} 秒")
-        if second < 0 or millisecond > 1000:  # OWCT 规定一分钟有 128 秒
-            raise ValueError(f"一分钟有 1000 毫秒，你却传入了 {millisecond} 秒")
+        if millisecond < 0 or millisecond > 999:  # 1s == 1000ms
+            raise ValueError(f"一分钟有 1000 毫秒，你却传入了 {millisecond} 毫秒")
 
     def __str__(self):
-        return f"{self.year}/{self.month}/{self.day} {self.hour:0>2d}:{self.minute:0>2d}:{self.second:0>2d}.{self.millisecond:0<4d}"
+        return f"{self.year}/{self.month:0>2d}/{self.day:0>2d} {self.hour:0>2d}:{self.minute:0>2d}:{self.second:0>2d}.{self.millisecond:0<3d}"
+
+    def __eq__(self, other):
+        return hash(self) == hash(other)
+
+    def __hash__(self):
+        return hash(str(self))
 
     @classmethod
     def from_datetime(cls, now: datetime.datetime):
-        now = datetime.datetime.utcfromtimestamp(now.timestamp())
+        now = now.astimezone(pytz.UTC)
         utc = int(now.timestamp() * 1000)
         owt = utc - int(datetime.datetime(
             2023, 3, 20, 0, 0, 0, 0,
             tzinfo=pytz.UTC
         ).timestamp() * 1000)
-        day_elapsed = owt / 1000 / 524288
-        remaining_milliseconds = owt % 524288000
-        year = int(day_elapsed / 256)
-        month = int((day_elapsed - year * 256) / 32)
-        day = int(day_elapsed - year * 256 - month * 32)
-        hour = int(remaining_milliseconds / 1000 / 16384)
-        minute = int((remaining_milliseconds / 1000 - hour * 16384) / 128)
-        second = int(remaining_milliseconds / 1000 - hour * 16384 - minute * 128)
-        millisecond = int(remaining_milliseconds - hour * 16384000 - minute * 128000 - second * 1000)
-        return OWTime(
-            year + 3047,
-            month + 1,
-            day + 1,
-            hour,
-            minute,
-            second,
-            millisecond
-        )
+        print(owt)
+        if owt < 0:
+            day_deducted = abs(owt / 1000 / 524288)
+            remaining_milliseconds = abs(owt) % 524288000
+            year = int(day_deducted / 256)
+            month = int((day_deducted - year * 256) / 32)
+            day = int(day_deducted - year * 256 - month * 32)
+            hour = int(remaining_milliseconds / 1000 / 16384)
+            minute = int((remaining_milliseconds / 1000 - hour * 16384) / 128)
+            second = int(remaining_milliseconds / 1000 - hour * 16384 - minute * 128)
+            millisecond = int(remaining_milliseconds - hour * 16384000 - minute * 128000 - second * 1000)
+            return OWTime(
+                3046 - year,
+                8 - month,
+                32 - day,
+                31 - hour,
+                127 - minute,
+                127 - second - 1 if millisecond > 0 else 127 - second,
+                1000 - millisecond if millisecond > 0 else 0
+            )
+        else:
+            day_elapsed = owt / 1000 / 524288
+            remaining_milliseconds = owt % 524288000
+            year = int(day_elapsed / 256)
+            month = int((day_elapsed - year * 256) / 32)
+            day = int(day_elapsed - year * 256 - month * 32)
+            hour = int(remaining_milliseconds / 1000 / 16384)
+            minute = int((remaining_milliseconds / 1000 - hour * 16384) / 128)
+            second = int(remaining_milliseconds / 1000 - hour * 16384 - minute * 128)
+            millisecond = int(remaining_milliseconds - hour * 16384000 - minute * 128000 - second * 1000)
+            return OWTime(
+                year + 3047,
+                month + 1,
+                day + 1,
+                hour,
+                minute,
+                second,
+                millisecond
+            )
 
     @classmethod
     def now(cls):
