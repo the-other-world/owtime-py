@@ -13,7 +13,7 @@ class OWCL:
         self.year = year
         self.month = month
         self.day = day
-        self.weekday = (8 * 4 * 8 * (year - 3047) + 8 * (month - 1) + day + 1) % 8
+        self.weekday = (8 * 4 * 8 * (year - 3047) + 8 * (month - 1) + day) % 8
         if self.weekday == 0:  # 如果结果被除尽，那么意味着这天是星期八
             self.weekday = 8
         if month < 1 or month > 8:  # OWCL 规定一年有 8 个月
@@ -42,17 +42,10 @@ class OWCL:
             hour = int(remaining_milliseconds / 1000 / 16384)
             minute = int((remaining_milliseconds / 1000 - hour * 16384) / 128)
             second = int(remaining_milliseconds / 1000 - hour * 16384 - minute * 128)
-            millisecond = int(remaining_milliseconds - hour * 16384000 - minute * 128000 - second * 1000)
             if (owt - minute * 128) % 16384 != 0:
                 hour += 1
             if (owt - second) % 128 != 0:
                 minute += 1
-            if millisecond > 0:
-                second = 128 - second - 1
-            elif second == 0:
-                second = 0
-            else:
-                second = 128 - second
             return OWCL(
                 3046 - year,
                 8 - month,

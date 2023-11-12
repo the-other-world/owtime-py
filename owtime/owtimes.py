@@ -18,7 +18,7 @@ class OWTime:
         self.second = second
         self.millisecond = millisecond
 
-        self.weekday = (8 * 4 * 8 * (year - 3047) + 8 * (month - 1) + day + 1) % 8
+        self.weekday = (8 * 4 * 8 * (year - 3047) + 8 * (month - 1) + day) % 8
         if self.weekday == 0:  # 如果结果被除尽，那么意味着这天是星期八
             self.weekday = 8
         if month < 1 or month > 8:  # OWCL 规定一年有 8 个月

@@ -23,10 +23,10 @@ A = 版本修改次数（例如 fix、feat 等）
 pip install git+https://github.com/the-other-world/owtime-py.git
 ```
 
-或指定版本（推荐，例如 5.2.2.1）
+或指定版本（推荐，例如 5.2.2.2）
 
 ```shell
-pip install git+https://github.com/the-other-world/owtime-py.git@5.2.2.1
+pip install git+https://github.com/the-other-world/owtime-py.git@5.2.2.2
 ```
 
 # 使用
