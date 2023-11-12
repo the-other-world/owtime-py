@@ -7,10 +7,6 @@ import owtime.owtimes
 
 
 class OWMTS:
-    """
-    毫秒时间戳
-    """
-
     def __init__(self, owt: owtime.owtimes.OWTime):
         self.owtime = owt
         self.timestamp = ((owt.year - 3047) * (128 * 128 * 32 * 8 * 4 * 8) +
