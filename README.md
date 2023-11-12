@@ -60,11 +60,15 @@ import datetime
 print(owtime.owts.OWTS(owtime.owtimes.OWTime.now()))  # 从一个已知的异世界时间反推出异世界时间戳
 print(owtime.owts.OWTS.now())  # 获取当前异世界时间戳
 print(owtime.owts.OWTS.from_datetime(datetime.datetime.now()))  # 从已知的现实时间（任意时区）反推异世界时间戳
+print(owtime.owts.OWTS.from_owmts_obj(owtime.owts.OWMTS(owtime.owtimes.OWTime.now())))  # 从一个已知的异世界毫秒时间戳转为秒级时间戳
+print(owtime.owts.OWTS(owtime.owtimes.OWTime.now()).to_owmts_obj())  # 与上面这条等效，更优雅的写法
 
 # 毫秒时间戳版本，格式为 3118087508
 print(owtime.owts.OWMTS(owtime.owtimes.OWTime.now()))
 print(owtime.owts.OWMTS.now())
 print(owtime.owts.OWMTS.from_datetime(datetime.datetime.now()))
+print(owtime.owts.OWMTS.from_owts_obj(owtime.owts.OWTS(owtime.owtimes.OWTime.now())))  # 从一个已知的异世界秒级时间戳转为毫秒时间戳
+print(owtime.owts.OWMTS(owtime.owtimes.OWTime.now()).to_owts_obj())  # 与上面这条等效，更优雅的写法
 ```
 
 ## OWCT

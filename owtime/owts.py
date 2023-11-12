@@ -27,6 +27,13 @@ class OWMTS:
     def to_int(self):
         return self.timestamp
 
+    def to_owts_obj(self):
+        return OWTS.from_owmts_obj(self)
+
+    @classmethod
+    def from_owts_obj(cls, owmts: owtime.owts.OWTS):
+        return OWMTS(owmts.owtime)
+
     @classmethod
     def from_datetime(cls, now):
         return OWMTS(owtime.owtimes.OWTime.from_datetime(now))
@@ -59,8 +66,11 @@ class OWTS:
     def to_int(self):
         return self.timestamp
 
+    def to_owmts_obj(self):
+        return OWMTS.from_owts_obj(self)
+
     @classmethod
-    def from_owmts(cls, owmts: OWMTS):
+    def from_owmts_obj(cls, owmts: owtime.owts.OWMTS):
         return OWTS(owmts.owtime)
 
     @classmethod
