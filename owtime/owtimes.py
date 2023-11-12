@@ -66,26 +66,4 @@ class OWTime:
 
     @classmethod
     def now(cls):
-        utc = int(datetime.datetime.utcnow().timestamp() * 1000)
-        owt = utc - int(datetime.datetime(
-            2023, 3, 20, 0, 0, 0, 0,
-            tzinfo=pytz.UTC
-        ).timestamp() * 1000)
-        day_elapsed = owt / 1000 / 524288
-        remaining_milliseconds = owt % 524288000
-        year = int(day_elapsed / 256)
-        month = int((day_elapsed - year * 256) / 32)
-        day = int(day_elapsed - year * 256 - month * 32)
-        hour = int(remaining_milliseconds / 1000 / 16384)
-        minute = int((remaining_milliseconds / 1000 - hour * 16384) / 128)
-        second = int(remaining_milliseconds / 1000 - hour * 16384 - minute * 128)
-        millisecond = int(remaining_milliseconds - hour * 16384000 - minute * 128000 - second * 1000)
-        return OWTime(
-            year + 3047,
-            month,
-            day,
-            hour,
-            minute,
-            second,
-            millisecond
-        )
+        return OWTime.from_datetime(datetime.datetime.utcnow())
