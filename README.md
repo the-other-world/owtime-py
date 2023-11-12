@@ -23,10 +23,10 @@ A = 版本修改次数（例如 fix、feat 等）
 pip install git+https://github.com/the-other-world/owtime-py.git
 ```
 
-或指定版本（例如 4.2.2.2）
+或指定版本（推荐，例如 5.2.2.1）
 
 ```shell
-pip install git+https://github.com/the-other-world/owtime-py.git@4.2.2.2
+pip install git+https://github.com/the-other-world/owtime-py.git@5.2.2.1
 ```
 
 # 使用
@@ -39,6 +39,8 @@ import datetime
 这些对象均可以被 str() 转换为人类可读的格式
 
 这些对象均拥有 weekday 属性，取值范围是 1 ~ 8，对应星期一到星期八
+
+这些对象的年份均可以 < 3047，即异世界前
 """
 
 print(owtime.owtimes.OWTime(3047, 1, 1, 1, 1, 1, 1))  # 创建一个异世界时间对象
@@ -54,6 +56,8 @@ import datetime
 这些对象均可以被 str() 或 int() 转换为数字格式的时间戳
 
 这些对象均拥有 to_int() 方法，等效于 int()
+
+这些对象的结果都可能为负数，即异世界前
 """
 
 # 秒级时间戳版本，格式为 3118087
@@ -94,6 +98,8 @@ import datetime
 这些对象均可以被 str() 转换为人类可读的格式
 
 这些对象均拥有 weekday 属性，取值范围是 1 ~ 8，对应星期一到星期八
+
+这些对象的年份均可以 < 3047，即异世界前
 """
 
 print(owtime.owcl.OWCL(3047, 1, 1))  # 创建一个异世界日期对象

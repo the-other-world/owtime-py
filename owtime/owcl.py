@@ -33,6 +33,31 @@ class OWCL:
             tzinfo=pytz.UTC
         ).timestamp() * 1000)
         day_elapsed = owt / 1000 / 524288
+        if owt < 0:  # 异世界前
+            day_deducted = abs(owt / 1000 / 524288)
+            remaining_milliseconds = abs(owt) % 524288000
+            year = int(day_deducted / 256)
+            month = int((day_deducted - year * 256) / 32)
+            day = int(day_deducted - year * 256 - month * 32)
+            hour = int(remaining_milliseconds / 1000 / 16384)
+            minute = int((remaining_milliseconds / 1000 - hour * 16384) / 128)
+            second = int(remaining_milliseconds / 1000 - hour * 16384 - minute * 128)
+            millisecond = int(remaining_milliseconds - hour * 16384000 - minute * 128000 - second * 1000)
+            if (owt - minute * 128) % 16384 != 0:
+                hour += 1
+            if (owt - second) % 128 != 0:
+                minute += 1
+            if millisecond > 0:
+                second = 128 - second - 1
+            elif second == 0:
+                second = 0
+            else:
+                second = 128 - second
+            return OWCL(
+                3046 - year,
+                8 - month,
+                32 - day
+            )
         return OWCL(
             int(day_elapsed // 256 + 3047),
             int(day_elapsed // 32) + 1,
