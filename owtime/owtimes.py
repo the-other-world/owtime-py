@@ -32,10 +32,11 @@ class OWTime:
         if second < 0 or second > 127:  # OWCT 规定一分钟有 128 秒
             raise ValueError(f"OWCT 规定一分钟有 128 秒，你却传入了 {second} 秒")
         if millisecond < 0 or millisecond > 999:  # 1s == 1000ms
-            raise ValueError(f"一分钟有 1000 毫秒，你却传入了 {millisecond} 毫秒")
+            raise ValueError(f"一秒钟有 1000 毫秒，你却传入了 {millisecond} 毫秒")
 
     def __str__(self):
-        return f"{self.year}/{self.month:0>2d}/{self.day:0>2d} {self.hour:0>2d}:{self.minute:0>2d}:{self.second:0>2d}.{self.millisecond:0<3d}"
+        return (f"{self.year}/{self.month:0>2d}/{self.day:0>2d} "
+                f"{self.hour:0>2d}:{self.minute:0>2d}:{self.second:0>2d}.{self.millisecond:0<3d}")
 
     def __eq__(self, other):
         return hash(self) == hash(other)
@@ -67,7 +68,7 @@ class OWTime:
                 minute += 1
             if millisecond > 0:
                 second = 128 - second - 1
-            elif second == 0:
+            elif 128 - second == 128:
                 second = 0
             else:
                 second = 128 - second
