@@ -15,13 +15,16 @@ class OWCT:
         self.second = second
         self.millisecond = millisecond
 
-        if hour < 0 or hour > 32:  # OWCT 规定一天有 32 小时
+        """
+        在 OWCT 规定中，一天为32小时，一小时128分钟，一分钟有 128 秒，一秒有1000毫秒
+        """
+        if hour < 0 or hour > 32:
             raise ValueError(f"OWCT 规定一天有 32 小时，你却传入了 {hour} 小时")
-        if minute < 0 or minute > 128:  # OWCT 规定一小时有 128 分钟
+        if minute < 0 or minute > 128:
             raise ValueError(f"OWCT 规定一小时有 128 分钟，你却传入了 {minute} 分钟")
-        if second < 0 or minute > 128:  # OWCT 规定一分钟有 128 秒
+        if second < 0 or minute > 128:
             raise ValueError(f"OWCT 规定一分钟有 128 秒，你却传入了 {second} 秒")
-        if millisecond < 0 or millisecond > 999:  # 1s == 1000ms
+        if millisecond < 0 or millisecond > 999:
             raise ValueError(f"一分钟有 1000 毫秒，你却传入了 {millisecond} 秒")
 
     def __str__(self):
